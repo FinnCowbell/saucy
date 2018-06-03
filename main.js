@@ -17,7 +17,7 @@ function drawSaucy(){
   ctx.drawImage(saucy[frame%2],c.width/2-50, c.height/2-50,100,100)
 
   frame = !frame;
-  if(beat >= 143){
+  if(beat >= 147){
     ctx.translate(c.width, 0);
     ctx.scale(-1,1);
     console.log(beat);
@@ -36,7 +36,7 @@ function start(){
     running = true;
     c.style.cursor = "default";
     audio.play();
-    runDrawSaucy = setInterval(drawSaucy,500);
+    var runDrawSaucy = setInterval(drawSaucy,500);
   }
 }
 ctx.fillText("Click to Start",50,50);
