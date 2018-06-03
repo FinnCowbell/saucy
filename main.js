@@ -7,30 +7,38 @@ var saucy1 = document.getElementById('saucy1')
 var saucy = [saucy0,saucy1];
 var frame = 0;
 var running = false;
+var beat = 1;
 function drawSaucy(){
+  if(!(beat % 16)){ //flips that sexy sausage
+  ctx.translate(c.width, 0);
+  ctx.scale(-1,1);
+  }
   ctx.clearRect(0,0,c.width,c.height)
-    ctx.drawImage(saucy[frame%2],c.width/2-50, c.height/2-50,100,100)
+  ctx.drawImage(saucy[frame%2],c.width/2-50, c.height/2-50,100,100)
+
   frame = !frame;
-  if(audio.paused || audio.ended){
-    clearInterval();
+  if(beat >= 143){
+    ctx.translate(c.width, 0);
+    ctx.scale(-1,1);
+    console.log(beat);
+    clearInterval(runDrawSaucy);
     ctx.clearRect(0,0,c.width,c.height);
     ctx.fillText("Click to Start",50,50);
     c.style.cursor = "pointer";
     running = false;
   }
+  beat++
 }
 
 function start(){
-if(!running){
-  ctx.clearRect(0,0,c.width,c.height);
-  running = true;
-  c.style.cursor = "default";
-  audio.play();
-  setInterval(drawSaucy,500);
+  if(!running){
+    ctx.clearRect(0,0,c.width,c.height);
+    running = true;
+    c.style.cursor = "default";
+    audio.play();
+    runDrawSaucy = setInterval(drawSaucy,500);
+  }
 }
-}
-
 ctx.fillText("Click to Start",50,50);
-
 c.onclick=start;
 }
