@@ -5,16 +5,16 @@ let ctx = c.getContext('2d');
 ctx.font = "30px Comic Sans MS"
 ctx.fillText("Click to Start",50,75);
 c.onclick=start;
+let running = false;
 function start(){
   let saucy = {
     frames: [document.getElementById('saucy'),document.getElementById('saucy1')],
-    w: 112,
-    h: 112 * 2,
+    w: 150,
+    h: 300,
   }
   let frame = 0;
-  let running = false;
   let beat = 1;
-  let runDrawSaucy = setInterval(drawSaucy,500);
+
   function drawSaucy(){
     if(!(beat % 16)){ //flips that sausage-bearing canvas
     ctx.translate(c.width, 0);
@@ -40,11 +40,13 @@ function start(){
     beat++
   }
   if(!running){
+    let runDrawSaucy = setInterval(drawSaucy,500);
     ctx.clearRect(0,0,c.width,c.height);
     running = true;
     c.style.cursor = "default";
     audio.play();
   }
+
 }
 
 }
