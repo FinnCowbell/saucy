@@ -1,25 +1,27 @@
 window.onload = function(){
-var audio = document.getElementById('player');
-var c = document.getElementById('gameSpace');
-
-var ctx = c.getContext('2d');
-var saucy0 = document.getElementById('saucy');
-var saucy1 = document.getElementById('saucy1')
-var saucy = [saucy0,saucy1];
-ctx.fillText("Click to Start",50,50);
+let audio = document.getElementById('player');
+let c = document.getElementById('gameSpace');
+let ctx = c.getContext('2d');
+ctx.font = "30px Comic Sans MS"
+ctx.fillText("Click to Start",50,75);
 c.onclick=start;
 function start(){
-  var frame = 0;
-  var running = false;
-  var beat = 1;
-  var runDrawSaucy = setInterval(drawSaucy,500);
+  let saucy = {
+    frames: [document.getElementById('saucy'),document.getElementById('saucy1')],
+    w: 112,
+    h: 112 * 2,
+  }
+  let frame = 0;
+  let running = false;
+  let beat = 1;
+  let runDrawSaucy = setInterval(drawSaucy,500);
   function drawSaucy(){
     if(!(beat % 16)){ //flips that sausage-bearing canvas
     ctx.translate(c.width, 0);
     ctx.scale(-1,1);
     }
     ctx.clearRect(0,0,c.width,c.height) // draws that sexy sausage
-    ctx.drawImage(saucy[frame%2],c.width/2-50, c.height/2-50,100,100)
+    ctx.drawImage(saucy.frames[frame%2],c.width/2-(saucy.w/2), c.height/2-(saucy.h / 2),saucy.w,saucy.h)
 
     frame = !frame;
     if(beat >= 144){
@@ -29,6 +31,7 @@ function start(){
       ctx.translate(c.width, 0);
       ctx.scale(-1,1);
       ctx.clearRect(0,0,c.width,c.height);
+      ctx.
       ctx.fillText("Click to Start",50,50);
       c.style.cursor = "pointer";
       running = false;
@@ -43,4 +46,5 @@ function start(){
     audio.play();
   }
 }
+
 }
