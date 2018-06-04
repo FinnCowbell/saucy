@@ -8,7 +8,7 @@ c.onclick=start;
 let running = false;
 function start(){
   let saucy = {
-    frames: [document.getElementById('saucy'),document.getElementById('saucy1')],
+    frames: [document.getElementById('saucy'),document.getElementById('saucy1'),document.getElementById('saucy3')],
     w: 150,
     h: 300,
   }
@@ -25,13 +25,11 @@ function start(){
 
     frame = !frame;
     if(beat >= 144){
-      ctx.clearRect(0,0,c.width,c.height);
+       ctx.drawImage(saucy.frames[2],c.width/2-(saucy.w/2), c.height/2-(saucy.h / 2),saucy.w,saucy.h)
     }
     if(audio.paused || audio.ended){
       ctx.translate(c.width, 0);
       ctx.scale(-1,1);
-      ctx.clearRect(0,0,c.width,c.height);
-      ctx.
       ctx.fillText("Click to Start",50,50);
       c.style.cursor = "pointer";
       running = false;
