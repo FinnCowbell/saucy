@@ -14,31 +14,30 @@ function start(){
   }
   let frame = 0;
   let beat = 1;
-
-  function drawSaucy(){
-    if(!(beat % 16)){ //flips that sausage-bearing canvas
-    ctx.translate(c.width, 0);
-    ctx.scale(-1,1);
-    }
-    ctx.clearRect(0,0,c.width,c.height) // draws that sexy sausage
-    ctx.drawImage(saucy.frames[frame%2],c.width/2-(saucy.w/2), c.height/2-(saucy.h / 2),saucy.w,saucy.h)
-
-    frame = !frame;
-    if(beat >= 144){
-       ctx.drawImage(saucy.frames[2],c.width/2-(saucy.w/2), c.height/2-(saucy.h / 2),saucy.w,saucy.h)
-    }
-    if(audio.paused || audio.ended){
-      ctx.translate(c.width, 0);
-      ctx.scale(-1,1);
-      ctx.fillText("Click to Start",50,50);
-      c.style.cursor = "pointer";
-      running = false;
-      clearInterval(runDrawSaucy);
-    }
-    beat++
-  }
   if(!running){
-    let runDrawSaucy = setInterval(drawSaucy,500);
+    let runDrawSaucy = setInterval(function(){
+        if(!(beat % 16)){ //shows you all sides of the 'sage
+        ctx.translate(c.width, 0);
+        ctx.scale(-1,1);
+        }
+        ctx.clearRect(0,0,c.width,c.height) // draws that sexy sausage
+        ctx.drawImage(saucy.frames[frame%2],c.width/2-(saucy.w/2), c.height/2-(saucy.h / 2),saucy.w,saucy.h)
+        frame = !frame; //bends those voluptious knees
+        if(beat >= 144){
+           ctx.clearRect(0,0,c.width,c.height);
+           ctx.drawImage(saucy.frames[2],c.width/2-(saucy.w/2), c.height/2-(saucy.h / 2),saucy.w,saucy.h);
+        }//fuck yeah make him cry
+        if(audio.paused || audio.ended){
+          ctx.translate(c.width, 0);
+          ctx.scale(-1,1);
+          ctx.clearRect(0,0,c.width,c.height)
+          ctx.fillText("Click to Start",50,50);
+          c.style.cursor = "pointer";
+          running = false;
+          clearInterval(runDrawSaucy); //puts the sausage out of his misery
+        }
+        beat++
+      },500);
     ctx.clearRect(0,0,c.width,c.height);
     running = true;
     c.style.cursor = "default";
